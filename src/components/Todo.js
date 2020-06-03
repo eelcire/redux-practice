@@ -1,15 +1,7 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
+import React from "react";
 
-class Todo extends Component {
-  render() {
-    console.log(this.props);
-    return <div>{this.props.todo}</div>;
-  }
+function Todo(props) {
+  return <div>{props.todo}</div>;
 }
 
-const mapStateToProps = (state) => {
-  return { todos: state };
-};
-
-export default connect(mapStateToProps)(Todo);
+export default Todo;

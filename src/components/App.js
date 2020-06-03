@@ -1,31 +1,46 @@
 import React, { Component } from "react";
+import Navbar from "./Navbar";
 import Todo from "./Todo";
-import { connect } from "react-redux";
 
 class App extends Component {
-  renderTodos() {
-    return this.props.todos
-      ? this.props.todos.map((todo, i) => {
-          return <Todo key={i} todo={todo} />;
-        })
-      : null;
-  }
+  state = {
+    todos: ["first todo", "second todo", "third todo"],
+    todo: "",
+  };
+
+  onClickButton = () => {
+    this.setState({ todos: [...this.state.todos, this.state.todo], todo: "" });
+  };
+
+  onChangeText = (e) => {
+    this.setState({ todo: e.target.value });
+  };
+
+  onFormSubmit = (e) => {
+    e.preventDefault();
+  };
 
   render() {
+    const renderTodos = this.state.todos.map((todo, i) => (
+      <Todo key={i} todo={todo} />
+    ));
+
     return (
       <div>
-        <form>
-          <input placeholder="Add Todo" />
-          <button>Submit</button>
+        <Navbar />
+        <form onSubmit={this.onFormSubmit}>
+          <input
+            placeholder="What to do?"
+            value={this.state.todo}
+            onChange={this.onChangeText}
+          />
+          <button onClick={this.onClickButton}>Add Todo</button>
         </form>
-        {this.renderTodos()}
+
+        {renderTodos}
       </div>
     );
   }
 }
 
-const mapStateToProps = (state) => {
-  return { todos: state };
-};
-
-export default connect(mapStateToProps)(App);
+export default App;
