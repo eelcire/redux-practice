@@ -1,6 +1,15 @@
-export const ADD_TODO = "ADD_TODO";
+export const addTodo = (input) => ({
+  type: "ADD_TODO",
+  input,
+});
 
-export const addTodo = (todo) => ({
-  type: ADD_TODO,
-  todo,
+export const editTodo = (input, original) => ({
+  type: "EDIT_TODO",
+  input,
+  original,
+});
+
+export const removeTodo = (index) => ({
+  type: "REMOVE_TODO",
+  index,
 });
