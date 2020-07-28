@@ -11,7 +11,7 @@ function Todo(props) {
     props.removeTodo(props.todo);
   };
 
-  const onTodoClick = () => {
+  const onTodoClick = (e) => {
     setIsDoubleClicked(true);
   };
 
@@ -20,13 +20,20 @@ function Todo(props) {
   };
 
   const onBlurClick = () => {
-    props.editTodo(props.todo, input);
+    if (input !== "") {
+      props.editTodo(props.todo, input);
+    } else {
+      setInput(props.todo[0]);
+    }
     setIsDoubleClicked(false);
   };
 
   const onPressEnter = (e) => {
     if (e.keyCode === 13) {
       e.target.blur();
+    } else if (e.keyCode === 27) {
+      setInput(props.todo[0]);
+      setIsDoubleClicked(false);
     }
   };
 
@@ -39,6 +46,7 @@ function Todo(props) {
     ) : (
       <div>
         <input
+          autoFocus
           onKeyDown={onPressEnter}
           onBlur={onBlurClick}
           onChange={onInputChange}
